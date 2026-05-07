@@ -1,1 +1,44 @@
-<h1>Teste de Controller</h1>
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Listagem de Tarefas</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container pt-5">
+      <a th:href="@{/task/create}" class="btn btn-primary mb-3">Cadastrar Tarefa</a>
+      <h1>Listagem de Tarefas</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Prioridade</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Concluída</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="tarefa : ${tarefasList}">
+            <td scope="row" th:text="${tarefa.titulo}"></td>
+            <td scope="row" th:text="${tarefa.descricao}"></td>
+            <td scope="row" th:text="${tarefa.prioridade}"></td>
+            <td scope="row" th:text="${tarefa.categoria}"></td>
+            <td scope="row" th:text="${tarefa.concluida ? 'Sim' : 'Não'}"></td>
+            <td>
+              <a th:href="@{/task/edit/{id}(id=${tarefa.id})}" class="btn btn-warning btn-sm">Editar</a>
+              <a th:href="@{/task/delete/{id}(id=${tarefa.id})}" class="btn btn-danger btn-sm">Deletar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
