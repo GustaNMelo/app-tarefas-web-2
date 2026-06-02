@@ -27,7 +27,10 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/home", "/register", "/saveUser", "/css/**").permitAll()
-                .requestMatchers("/task/*").hasAuthority("Admin")
+                .requestMatchers("/task").authenticated()
+                .requestMatchers("/task/**").hasAuthority("Admin")
+                .requestMatchers("/projeto").authenticated()
+                .requestMatchers("/projeto/**").hasAuthority("Admin")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

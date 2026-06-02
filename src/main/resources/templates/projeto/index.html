@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+  <th:block th:replace="~{/../fragments/head :: head('Listar Projetos')}"></th:block>
+  <body>
+    <th:block th:replace="~{/../fragments/head :: header}"></th:block>
+    <div class="container">
+      <h1>Listagem de Projetos</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Data de Início</th>
+            <th scope="col">Total de Horas</th>
+            <th scope="col">Tarefas</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Deletar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="projeto : ${projetos}">
+            <td th:text="${projeto.nome}"></td>
+            <td th:text="${#temporals.format(projeto.dataInicio, 'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${projeto.totalHoras}"></td>
+            <td th:text="${projeto.itens.size()}"></td>
+            <td>
+              <a th:href="@{/projeto/edit/{id}(id=${projeto.id})}">Editar</a>
+            </td>
+            <td>
+              <a th:href="@{/projeto/delete/{id}(id=${projeto.id})}">Deletar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <a th:href="@{/projeto/create}">
+          <button sec:authorize="hasAuthority('Admin')" class="btn btn-primary">Cadastrar Projeto</button>
+        </a>
+      </div>
+    </div>
+    <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
+  </body>
+</html>
